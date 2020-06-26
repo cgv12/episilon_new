@@ -7,7 +7,7 @@ WORKDIR /opt/app
 ARG tomcatURL
 ARG tomcatVersion
 RUN wget ${tomcatURL} && tar -xvf apache-tomcat-${tomcatVersion}.tar.gz && rm -rf apache-tomcat-${tomcatVersion}.tar.gz
-ENV tomcatVersion ${tomcatVersion} 
+ENV tomcatVersion ${tomcatVersion}
 COPY start-tomcat.sh .
 EXPOSE 8080
 CMD ["sh","start-tomcat.sh"]
