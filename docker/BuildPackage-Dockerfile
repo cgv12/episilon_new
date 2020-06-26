@@ -1,0 +1,3 @@
+FROM epsilon:1.0 
+COPY build.sh . 
+CMD ["sh","build.sh"] 

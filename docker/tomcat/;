@@ -1,0 +1,6 @@
+FROM centos:8
+LABEL MaintainedBy=cgv EmailID=cgoppalli@gmail.com
+RUN yum install -y  java wget
+RUN adduser tomcat -d /opt/app
+USER tomcat
+WORKDIR /opt/app
