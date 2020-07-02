@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd
+  namespace: cgv
+  labels:
+    app: httpd
+  annotations:
+    githublink: https://github.com/cgv12/episilon_new.git
+    maintainer: Cgv
+spec:
+  replicas: 3 
+  template:
+    metadata:
+      labels:
+        owner: cgv
+    spec:
+      containers:
+      - image: kulbhushanmayer/ericsson:bangalore-httpd-1.1
+        name: httpd
+        envFrom:
+        - secretRef:
+            name: mysqlpwd
+        - configMapRef:
+            name: httpd-cm
+
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      nodeSelector:
+        cgvNode: cgv
+  selector:
+    matchLabels:
+      owner: cgv
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
